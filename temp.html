@@ -22,22 +22,44 @@ li a {
 }
 
 li a:hover:not(.active) {
-  background-color: purple;
+  background-color: orange;
 }
 
 .active {
-  background-color: black;
+  background-color: orange;
 }
+
+h1 {
+ color: black;
+ text-align: center;
+ }
+
+h3 {
+ color: orange;
+ text-align: center;
+}
+
 </style>
 </head>
 <body>
 
 <ul>
   <li><a href="#home">Home</a></li>
-  <li><a href="#student">Student</a></li>
-  <li><a href="#enrollment">Enrollment</a></li>
+  <li><a href="#enrollment">Enrollment</a>
+  <div class="sub-menu">
+    <ul>
+      <li><a href="#register">Register</a></li>
+      <li><a href="#login">Login</a></li>
+
+    </ul>
+  </div>
+  </li>
+  <li><a href="#help">Help</a></li>
   <li style="float:right"><a class="active" href="#search">Search</a></li>
 </ul>
+
+<h1>BOOK WORLD</h1>
+<h3>An Online Library For Students</h3>
 
 </body>
 </html>
