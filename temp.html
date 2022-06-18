@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head><style>
+body {
+  padding: 10px;
+  margin: 0;
+  background-image: url(download.jpg);
+  background-size: cover;
+  background-position: center;
+}
 ul {
   list-style-type: none;
   margin: 0;
@@ -29,28 +36,39 @@ li a:hover:not(.active) {
   background-color: orange;
 }
 
-h1 {
- color: black;
- text-align: center;
- }
-
 h3 {
  color: orange;
- text-align: center;
+ text-align: left;
 }
-
+.menu {
+ background-color: white;
+ left: 100%;
+ color: black-orange;
+}
+.sub-menu {
+ display: none;
+ position: absolute;
+}
+.sub-menu ul {
+ display: block;
+}
+.sub-menu ul li {
+ width: 150px;
+ padding: 20px;
+}
 </style>
 </head>
 <body>
-
+<div class="menu">
+  <h1 class="logo">Book<span>World.</span></h1>
+</div>
 <ul>
   <li><a href="#home">Home</a></li>
-  <li><a href="#enrollment">Enrollment</a>
+  <li><a href="#enrollment" id="enrollment">Enrollment</a>
   <div class="sub-menu">
     <ul>
       <li><a href="#register">Register</a></li>
       <li><a href="#login">Login</a></li>
-
     </ul>
   </div>
   </li>
@@ -58,9 +76,19 @@ h3 {
   <li style="float:right"><a class="active" href="#search">Search</a></li>
 </ul>
 
-<h1>BOOK WORLD</h1>
 <h3>An Online Library For Students</h3>
+<script defer>
+const enrollmentDropDownMenu = document.querySelector(".sub-menu");
+function toggleDropdown() {
+  if (enrollmentDropDownMenu.style.display == "none") {
+    enrollmentDropDownMenu.style.display = "block"
+  }  else{
+    enrollmentDropDownMenu.style.display = "none"
+  }
+}
 
+document.querySelector("#enrollment").addEventListener("click", toggleDropdown)
+</script>
 </body>
 </html>
 
