@@ -1,0 +1,25 @@
+<table align="center", border="1">
+    <thead>
+      <tr>
+          <td>No.</td>
+          <td>BOOK TITLE</td>
+          <td>AUTHOR</td>
+          <td>CATEGORY</td>
+          <td>BOOK NUMBER</td>
+          <td>SHELF NUMBER</td>
+
+      </tr>
+    </thead>
+    {% for k in queryset %}
+   <tbody>
+     <tr>
+         <td>{{forloop.counter}}</td>
+         <td>{{k.Book_name}}</td>
+         <td>{{k.Book_author}}</td>
+         <td>{{k.Book_category}}</td>
+         <td>{{k.Book_number}}</td>
+         <td>{{k.Book_shelf}}</td>
+     </tr>
+   </tbody>
+    {% endfor %}
+</table>
