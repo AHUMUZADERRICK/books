@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import lib
-from .forms import libform
+from .forms import libform, Sform
 
 
 # Create your views here.
@@ -29,6 +29,24 @@ def existing(request):
         'queryset':queryset
     }
     return render(request, 'table.html', context)
+def search(request):
+    title = 'Search for books'
+    form = Sform(request.POST or None)
+    if form.is_valid():
+        name = form.cleaned_data['Book_name']
+        queryset=lib.objects.filter(Book_name =name)
+        context ={
+            'title':title,
+            'form': queryset
+        }
+        return render(request, 'table.html', context)
+    context = {
+        'title': title,
+        'form': form,
+
+    }
+    return render(request, 'search.html', context)
+
 
 
 
