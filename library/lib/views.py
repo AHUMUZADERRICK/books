@@ -34,12 +34,12 @@ def search(request):
     form = Sform(request.POST or None)
     if form.is_valid():
         name = form.cleaned_data['Book_name']
-        queryset=lib.objects.filter(Book_name =name)
-        context ={
+        queryset = lib.objects.filter(Book_name=name)
+        '''contexts ={
             'title':title,
-            'form': queryset
-        }
-        return render(request, 'table.html', context)
+            'form': queryset,
+        }'''
+        return render(request, 'table.html', {'form':queryset})
     context = {
         'title': title,
         'form': form,
