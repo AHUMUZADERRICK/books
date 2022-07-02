@@ -33,7 +33,7 @@ def search(request):
     title = 'Search for books'
     form = Sform(request.POST or None)
     if form.is_valid():
-        name = form.cleaned_data['Book_name']
+        name = form.cleaned_data.get('Book_name')
         queryset = lib.objects.filter(Book_name=name)
         '''contexts ={
             'title':title,
@@ -47,7 +47,8 @@ def search(request):
     }
     return render(request, 'search.html', context)
 
-
+def home(request):
+    return render(request, 'temp.html')
 
 
 
