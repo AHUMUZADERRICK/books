@@ -73,28 +73,23 @@ h3 {
   <h1 class="logo">Book<span>World.</span></h1>
 </div>
 <ul>
-  <li><a href="/">Home</a></li>
-  <li><a href="/accounts/register" class="enrollment">Enrollment</a></li>
-  <li><a  href="/accounts/login" class="active">LOGIN</a></li>
+  <li><a href="/accounts/librarain">Home</a></li>
+  <li><a href="#enrollment" class="enrollment">Book Management</a>
+  <div class="sub-menu">
+    <ul>
+      <li><a href="/register">Register Books</a></li>
+      <li><a href="/librarain/database">Available books</a></li>
+      <li><a href="/accounts/logout">log out</a></li>
+      <li><a href="/remove">Remove books</a></li>
+
+    </ul>
+  </div>
+  </li>
   <li><a href="#help">Help</a></li>
-    <li style="float:right"><a class="active" href="/search">Search</a></li></ul>
-  {% if messages %}
-     {% for message in messages  %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-     {% endfor %}
-  {% endif %}
-  {% block content %}
-  {% endblock %}
+  <li style="float:right"><a class="active" href="/search">Search</a></li>
+</ul>
 
-
-
-
-  <h3>An Online Library For Students</h3>
+<h3>An Online Library For Students</h3>
 <script defer>
 const enrollmentDropDownMenu = document.querySelector(".sub-menu");
 function toggleDropdown() {

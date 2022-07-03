@@ -33,13 +33,13 @@ def search(request):
     title = 'Search for books'
     form = Sform(request.POST or None)
     if form.is_valid():
-        name = form.cleaned_data.get('Book_name')
+        name = form.cleaned_data['Book_name']
         queryset = lib.objects.filter(Book_name=name)
-        '''contexts ={
+        contexts ={
             'title':title,
             'form': queryset,
-        }'''
-        return render(request, 'table.html', {'form':queryset})
+        }
+        return render(request, 'table.html', contexts)
     context = {
         'title': title,
         'form': form,
@@ -49,6 +49,27 @@ def search(request):
 
 def home(request):
     return render(request, 'temp.html')
+def existings(request):
+    title = 'List of available books'
+    queryset = lib.objects.all()
+    context = {
+        'title':title,
+        'queryset':queryset
+    }
+    return render(request, 'testing.html', context)
+def delete(request):
+    title = 'Search for books'
+    form = Sform(request.POST or None)
+    if form.is_valid():
+        name = form.cleaned_data['Book_name']
+        queryset = lib.objects.filter(Book_name=name).delete()
+        return render(request, 'remove.html', {'title': 'Book details removed successfully'})
+
+    context = {
+        'title': title,
+        'form': form,
+    }
+    return render(request, 'success.html', context)
 
 
 
