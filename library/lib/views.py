@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .models import lib
 from .forms import libform, Sform
-
+from library.accounts.decorators import authenticated_user,set,unauthenticated_user
 
 # Create your views here.
+@authenticated_user
 def database(request):
     title = 'Book Registration'
     form = libform(request.POST or None)
