@@ -5,6 +5,10 @@ urlpatterns =[
     path('database/', views.existing),
     path('librarain/database/', views.existings),
     path('search/', views.search),
-    path('', views.home),
+    path('', views.home, name='home'),
     path('remove/', views.delete),
+    path('borrow/', views.borrow),
+    path('borrowed/', views.borrowed),
+    path('books/', views.books),
+
 ]

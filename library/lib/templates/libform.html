@@ -1,5 +1,6 @@
-{%include "temp.html"%}
+
 <html>
+{%include "temp.html"%}<br>
 <form action="{% url 'librarain_register' %}" method="post">
     {%csrf_token%}
     {{form}}
