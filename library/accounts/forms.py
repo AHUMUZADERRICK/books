@@ -6,7 +6,8 @@ from .models import User,Student,librarian
 class StudentSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    phone_number = forms.CharField(required=True)
+    Student_number = forms.CharField(required=True)
+    WebMail = forms.CharField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -17,15 +18,17 @@ class StudentSignUpForm(UserCreationForm):
         user.is_student = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
+        user.WebMail= self.cleaned_data.get('WebMail')
+        user.Reg=self.cleaned_data.get('Student_number')
         user.save()
         student = Student.objects.create(user=user)
-        student.phone_number = self.cleaned_data.get('phone_number')
         student.save()
         return user
 class librarainSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    phone_number = forms.CharField(required=True)
+    Staff_number = forms.CharField(required=True)
+    WebMail = forms.EmailField(required=False)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -37,9 +40,10 @@ class librarainSignUpForm(UserCreationForm):
         user.is_staff = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
+        user.Reg=self.cleaned_data.get('Staff_number')
+        user.WebMail=self.cleaned_data.get('WebMail')
         user.save()
         lib = librarian.objects.create(user=user)
-        lib.phone_number = self.cleaned_data.get('phone_number')
         lib.save()
         return user
 

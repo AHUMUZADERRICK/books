@@ -81,12 +81,14 @@ h3 {
       <li><a href="/librarain/database">Available books</a></li>
       <li><a href="/accounts/logout">log out</a></li>
       <li><a href="/remove">Remove books</a></li>
-
+        {% if user.is_superuser %}
+        <li><a href="/admin">Admin</a></li>
+        {% endif %}
     </ul>
   </div>
   </li>
   <li><a href="/borrowed">Borrowed books</a></li>
-  <li style="float:right"><a class="active" href="/search">Search</a></li>
+  <li style="float:right"><a class="active" href="/return">Return</a></li>
 </ul>
  {% if messages %}
      {% for message in messages  %}

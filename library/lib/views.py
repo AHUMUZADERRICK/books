@@ -1,9 +1,12 @@
+import datetime
 from django.shortcuts import render,redirect
 from .models import lib, borrowed_books
 from .forms import libform, Sform
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.db.models import F
+from django.db import IntegrityError
+from django.shortcuts import get_object_or_404
 from datetime import date,timedelta,time
 # Create your views here.
 #@authenticated_user
@@ -47,7 +50,7 @@ def search(request):
     form = Sform(request.POST or None)
     if form.is_valid():
         name = form.cleaned_data['Book_name']
-        queryset = lib.objects.filter( Book_name=name).values()
+        queryset = lib.objects.get( Book_name=name)
         contexts ={
             'title':title,
             'form': queryset,
@@ -87,35 +90,75 @@ def delete(request):
     return render(request, 'success.html', context)
 @user_passes_test(lambda u: u.is_student)
 def borrow(request):
-    title = 'Search for books to borrow'
-    form = Sform(request.POST or None)
-    if form.is_valid():
-        names = form.cleaned_data['Book_name']
-        '''n = User.first_name
-        f= User.last_name'''
-        n=lib.Book_name
-        g = lib.Date_added
-        w= borrowed_books(borrower_name=names, date=g)
-        w.save()
-        if form.is_valid():
-            name = form.cleaned_data['Book_name']
-            if F('Number_of_available_copies_gte=0'):
-                 lib.objects.filter(Book_name=name).update(Number_of_available_copies=F('Number_of_available_copies') - 1)
-                 return render(request, 'remove.html', {'title': 'Book details removed successfully'})
-        else:
-            return render(request,'un.html')
-    context = {
-        'title': title,
-        'form': form,
-    }
-    return render(request, 'borrow.html',context)
+    form = Sform
+    names = form.clean
+    try:
+      lib.objects.update(Number_of_available_copies=F('Number_of_available_copies') - 1)
+    except IntegrityError:
+        messages.success(request, 'Book is out of Stock')
+        return redirect('/database/')
+    x = request.user.first_name
+    y= request.user.last_name
+    z=request.user.Reg
+    N=request.user.books_borrowed
+    g = datetime.datetime.now()
+    return_date = datetime.datetime.now() + datetime.timedelta(weeks=1)
+    #time_elapse = datetime.date.today() -return_date
+    w = borrowed_books(book_title=names, borrower_fname=x, date=g, borrower_lname=y, borrower_number=z,Return=return_date,fine=N)
+    w.save()
+    messages.success(request, 'Book has been borrowed successfully')
+    return redirect('/database/')
+
+#@user_passes_test(lambda u: u.is_staff)
+def fines(request):
+    if request.user.is_authenticated:
+        k = borrowed_books.objects.all
+        for x in k:
+            return_date = x.date + datetime.timedelta(weeks=2)
+            time_elapse = datetime.date.today()-return_date
+            if time_elapse.days > 1:
+                x.fine= 5000
+                n = borrowed_books(fine=x.fine)
+                n.save()
+            elif time_elapse.days>5:
+                x.fine= 15000
+                o = borrowed_books(fine=x.fine)
+                o.save()
 @user_passes_test(lambda u: u.is_staff)
 def borrowed(request):
-    title = 'List of available books'
+    title = 'List of borrowed books'
     queryset = borrowed_books.objects.all()
     context = {
         'title': title,
         'queryset': queryset
     }
     return render(request, 'borrowtable.html', context)
+@user_passes_test(lambda u: u.is_staff)
+def returns(request):
+    title = 'Search for books to return'
+    form = Sform(request.POST or None)
+    if form.is_valid():
+        name = form.cleaned_data['Book_name']
+        try:
+            queryset = borrowed_books.objects.filter(q=name).delete()
+            messages.success(request, 'Book has been returned successfully')
+            return redirect('/return/')
+        except AttributeError:
+            messages.success(request, 'Return code invalid')
+            return redirect('/return/')
+        except ValueError:
+            messages.success(request, 'Return code invalid')
+            return redirect('/return/')
+        except TypeError:
+            messages.success(request, 'Return code invalid')
+            return redirect('/return/')
+
+
+
+    context = {
+        'title': title,
+        'form': form,
+    }
+    return render(request, 'success.html', context)
+
 

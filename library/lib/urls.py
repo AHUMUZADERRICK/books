@@ -10,5 +10,6 @@ urlpatterns =[
     path('borrow/', views.borrow),
     path('borrowed/', views.borrowed),
     path('books/', views.books),
+    path('return/', views.returns)
 
 ]

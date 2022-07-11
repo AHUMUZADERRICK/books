@@ -12,15 +12,19 @@ class lib(models.Model):
     Book_shelf = models.CharField(max_length=30)
     Number_of_available_copies = models.PositiveIntegerField(blank=False,null=True)
     Date_added = models.DateTimeField(auto_now_add=True, blank=True)
-
-    def borrow(self):
-        y=lib.Number_of_available_copies
-        y -=1
-        y.save()
+    isbn = models.CharField('ISBN', max_length=13,default=False)
+    pic = models.ImageField(blank=True, null=True, upload_to='book_image')
 
 class borrowed_books(models.Model):
-    borrower_name = models.CharField(max_length=30)
+    book_title=models.CharField(max_length=30)
+    borrower_fname = models.CharField(max_length=30,default=True)
+    borrower_lname = models.CharField(max_length=30,default=False)
+    borrower_number = models.CharField(max_length=30,default=False)
     date = models.DateTimeField(auto_now_add=True)
+    Return = models.DateTimeField(default=True)
+    fine = models.CharField(max_length=90,default=0)
+    q = models.AutoField(auto_created=True,primary_key=True,editable=False,blank=True )
+
 
 
 

@@ -8,5 +8,6 @@ urlpatterns = [
     path('librarain/', views.librarain, name='librarain'),
     path('student/', views.student, name='student'),
     path('logout/', views.logout_view, name='logout'),
+    path('activate_user/<uidb64>/<token>', views.activate_user, name='activate')
 
 ]
