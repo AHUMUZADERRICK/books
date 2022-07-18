@@ -2,7 +2,6 @@
 <table align="center", border="1">
     <thead>
       <tr>
-          <td>No.</td>
           <td>BORROW ID</td>
           <td>BOOK TITLE</td>
           <td>BORROWER NUMBER</td>
@@ -17,7 +16,6 @@
     {% for k in queryset %}
    <tbody>
      <tr>
-         <td>{{forloop.counter}}</td>
          <td>{{k.q}}</td>
          <td>{{k.book_title}}</td>
          <td>{{k.borrower_number}}</td>
@@ -26,6 +24,7 @@
          <td>{{k.fine}}</td>
          <td>{{k.date}}</td>
          <td>{{k.Return}}</td>
+         <td><a href="/returns/{{k.q}}" class="btn btn-info" role="button">Return Book</a></td>
      </tr>
    </tbody>
     {% endfor %}

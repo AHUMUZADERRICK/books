@@ -7,9 +7,9 @@ urlpatterns =[
     path('search/', views.search),
     path('', views.home, name='home'),
     path('remove/', views.delete),
-    path('borrow/', views.borrow),
+    path('borrow/<int:Book_number>', views.borrow),
     path('borrowed/', views.borrowed),
     path('books/', views.books),
-    path('return/', views.returns)
-
+    path('return/', views.check_return),
+    path('returns/<int:q>', views.returns),
 ]
