@@ -1,0 +1,31 @@
+{%include "librarain.html"%}
+<table align="center", border="1">
+    <thead>
+      <tr>
+          <td>BORROW ID</td>
+          <td>BOOK TITLE</td>
+          <td>BORROWER NUMBER</td>
+          <td>BORROWER FIRST NAME</td>
+          <td>BORROWER LAST NAME</td>
+          <td>BOOKS BORROWED</td>
+          <td>DATE TAKEN</td>
+          <td>DUE DATE </td>
+
+      </tr>
+    </thead>
+    {% for k in queryset %}
+   <tbody>
+     <tr>
+         <td>{{k.q}}</td>
+         <td>{{k.book_title}}</td>
+         <td>{{k.borrower_number}}</td>
+         <td>{{k.borrower_fname}}</td>
+         <td>{{k.borrower_lname}}</td>
+         <td>{{k.fine}}</td>
+         <td>{{k.date}}</td>
+         <td>{{k.Return}}</td>
+         <td><a href="/returns/{{k.q}}" class="btn btn-info" role="button">Return Book</a></td>
+     </tr>
+   </tbody>
+    {% endfor %}
+</table>
